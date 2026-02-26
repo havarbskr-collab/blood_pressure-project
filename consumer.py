@@ -1,45 +1,49 @@
-from faker import Faker
-from fhir.resources.observation import Observation
-import random
-from datetime import datetime, timezone
+from kafka import KafkaConsumer
+import json
 
-fake = Faker()
+consumer = KafkaConsumer(
+    'topic',
+    bootstrap_servers='localhost:9092',
+    auto_offset_reset='earliest',
+    enable_auto_commit=True,
+    value_deserializer=lambda x: json.loads(x.decode('utf-8'))
+)
 
-def generate_fhir():
+print("Consumer démarré...")
 
-    # Générer données patient
-    patient_id = fake.uuid4()
-    systolic = random.randint(80, 180)
-    diastolic = random.randint(50, 120)
+for message in consumer:
+    data = message.value
+    
+    print("\nMessage reçu :")
+    print(data)
+    
+    # Exemple détection simple
+    systolic = data["component"][0]["valueQuantity"]["value"]
+    diastolic = data["component"][1]["valueQuantity"]["value"]
 
-    observation_data = {
-        "resourceType": "Observation",
-        "status": "final",
-        "code": {
-            "text": "Blood Pressure"
-        },
-        "subject": {
-            "reference": f"Patient/{patient_id}"
-        },
-        "effectiveDateTime": datetime.now(timezone.utc).isoformat(),
-        "component": [
-            {
-                "code": {"text": "Systolic Blood Pressure"},
-                "valueQuantity": {
-                    "value": systolic,
-                    "unit": "mmHg"
-                }
-            },
-            {
-                "code": {"text": "Diastolic Blood Pressure"},
-                "valueQuantity": {
-                    "value": diastolic,
-                    "unit": "mmHg"
-                }
-            }
-        ]
-    }
+    if systolic > 140 or diastolic > 90:
+        print("⚠️ Hypertension détectée")
+    elif systolic < 90 or diastolic < 60:
+        print("⚠️ Hypotension détectée")
+    else:
+        print("Pression normale")
 
-    observation = Observation(**observation_data)
+# Détection avec variable anomaly
+if systolic > 140 or diastolic > 90:
+    anomaly = "Hypertension"
+    print("⚠️ Hypertension détectée")
+elif systolic < 90 or diastolic < 60:
+    anomaly = "Hypotension"
+    print("⚠️ Hypotension détectée")
+else:
+    anomaly = "Normal"
+    print("Pression normale")
 
-    return observation.dict()
+# =========================
+# Sauvegarde des normaux
+# =========================
+
+if anomaly == "Normal":
+    with open("normal_data.json", "a") as f:
+        f.write(json.dumps(data) + "\n")
+
