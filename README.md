@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Blood Pressure Monitoring System
 
 ---
