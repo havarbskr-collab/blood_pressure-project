@@ -98,10 +98,9 @@ Une alerte est générée si :
 
 ## Scripts Principaux
 
-   Script	                     Rôle
-generate_fhir.py	    Génère les données simulées
-producer.py          	Envoie les données vers Kafka
-consumer.py          	Analyse les mesures et classe les patients
+- generate_fhir.py -> Rôle : Génère les données simulées
+- producer.py      -> Rôle : Envoie les données vers Kafka
+- consumer.py      -> Rôle : Analyse les mesures et classe les patients
 
 ---
 
@@ -114,4 +113,5 @@ Projet réalisé dans le cadre du Master 1 BIDABI:
 * Palla — Documentation & Data Science
 
 ---
+
 
