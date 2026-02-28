@@ -79,10 +79,11 @@ Le consumer analyse chaque mesure et classe automatiquement les patients.
 
 ## Fichiers de Résultat
 
-Dans le fichier on aura alors :
-- donnees_normales.json, où y'aura les patients avec tension normale
--  alertes_hypertension.json, où y'aura les patients avec anomalies détectées
-- anomalies.json, où y'aura le journal technique des anomalies
+Après exécution, les fichiers suivants sont générés :
+
+donnees_normales.json : contient les patients avec une tension normale.
+alertes_hypertension.json : contient les patients présentant des anomalies détectées.
+anomalies.json : journal technique des anomalies identifiées.
 
 ---
 
@@ -96,10 +97,11 @@ Une alerte est générée si :
 ---
 
 ## Scripts Principaux
-On nom les scripts et leur différents rôles :
-- generate_fhir.py, qui va génèrer les données simulées  
-- producer.py, qui va envoyer les données vers Kafka 
-- consumer.py, qui va analyser et classer les patients
+
+   Script	                     Rôle
+generate_fhir.py	    Génère les données simulées
+producer.py          	Envoie les données vers Kafka
+consumer.py          	Analyse les mesures et classe les patients
 
 ---
 
@@ -112,3 +114,4 @@ Projet réalisé dans le cadre du Master 1 BIDABI:
 * Palla — Documentation & Data Science
 
 ---
+
