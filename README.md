@@ -132,7 +132,3 @@ Projet réalisé dans le cadre du Master 1 BIDABI:
 
 ---
 
-
-
-
->>>>>>> f23f6a6ee7ec7083c831dccb57b91d98f353450a
