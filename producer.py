@@ -11,14 +11,13 @@ producer = KafkaProducer(
 
 topic = "test"
 
-print("Envoi de 5 patients...")
+print("Envoi en continu des patients...")
 
-# Envoi de seulement 5 patients
-for i in range(5):
+while True:
     data = generate_fhir()
     producer.send(topic, value=data)
-    print(f"Patient {i+1} envoyé")
-    time.sleep(2)
+    print("Message envoyé à Kafka")
+    time.sleep(5)
 
 print("Envoi terminé")
 
