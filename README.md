@@ -1,9 +1,10 @@
 <<<<<<< HEAD
 # Blood Pressure Monitoring System
 
+---
 ## Description
 
-Ce projet simule un système de surveillance de la pression artérielle en temps réel.
+Le système génère des observations médicales (système de surveillance de la pression artérielle), les envoie dans Kafka, puis les analyse automatiquement pour détecter les anomalies.
 
 Il permet de :
 
@@ -12,6 +13,23 @@ Il permet de :
 * Analyser automatiquement les mesures.
 * Détecter les anomalies de pression artérielle.
 * Séparer les patients normaux des patients à risque.
+
+Il sépare ensuite les patients :
+normaux → stockés dans un fichier JSON
+anormaux → enregistrés dans un fichier d’alertes
+
+---
+## Objectif du projet
+
+Ce projet simule un système complet de surveillance en temps réel.
+
+Il permet de démontrer les points suivants :
+
+- Kafka fonctionne correctement
+- Le Producer envoie bien les messages FHIR
+- Le Consumer reçoit et traite les messages
+- La détection d’anomalies fonctionne
+- Les données normales sont sauvegardées en JSON
 
 ---
 
